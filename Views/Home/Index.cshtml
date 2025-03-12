@@ -1,8 +1,150 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿
+@{
+    ViewData["Title"] = "Junior Software Developer";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!-- Hero Section -->
+<section class="hero-section text-center py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 text-lg-start">
+                <h1 class="display-4 fw-bold text-gradient mb-3">@ViewData["Name"]</h1>
+                <h2 class="h3 mb-4">@ViewData["Title"]</h2>
+                <p class="lead mb-4">@ViewData["Summary"]</p>
+                <div class="d-flex flex-wrap gap-2 justify-content-lg-start justify-content-center">
+                    <a class="btn btn-primary btn-lg" asp-controller="Projects" asp-action="Index">
+                        <i class="bi bi-code-slash me-2"></i>My Projects
+                    </a>
+                    <a class="btn btn-outline-dark btn-lg" asp-controller="Contact" asp-action="Index">
+                        <i class="bi bi-envelope me-2"></i>Get In Touch
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6 mt-5 mt-lg-0">
+                <!-- Main profile image with tech icons floating around -->
+                <div class="position-relative">
+                    <img src="/images/profile.jpg" alt="Profile Photo" class="img-fluid rounded-circle profile-main shadow-lg">
+                    <!-- Tech icons floating around -->
+                    <div class="tech-icon tech-icon-1"><i class="bi bi-filetype-html"></i></div>
+                    <div class="tech-icon tech-icon-2"><i class="bi bi-filetype-css"></i></div>
+                    <div class="tech-icon tech-icon-3"><i class="bi bi-filetype-cs"></i></div>
+                    <div class="tech-icon tech-icon-4"><i class="bi bi-database"></i></div>
+                    <div class="tech-icon tech-icon-5"><i class="bi bi-filetype-js"></i></div>
+                    <!-- New icons -->
+                    <div class="tech-icon tech-icon-6"><i class="bi bi-cloud"></i></div>
+                    <div class="tech-icon tech-icon-7"><i class="bi bi-bootstrap"></i></div>
+                    <div class="tech-icon tech-icon-8"><i class="bi bi-code-square"></i></div>
+                    <div class="tech-icon tech-icon-9"><i class="bi bi-server"></i></div>
+                    <div class="tech-icon tech-icon-10"><i class="bi bi-git"></i></div>
+                    <div class="tech-icon tech-icon-11"><i class="bi bi-window"></i></div>
+                    <div class="tech-icon tech-icon-12"><i class="bi bi-diagram-3"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Skills Overview Section -->
+<section class="skills-overview py-5 bg-light">
+    <div class="container">
+        <h2 class="section-title text-center mb-5">My Expertise</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="expertise-card text-center p-4 h-100">
+                    <div class="icon-wrapper mb-3">
+                        <i class="bi bi-code-square expertise-icon"></i>
+                    </div>
+                    <h3 class="h4">Backend Development</h3>
+                    <p>Crafting robust server-side applications with ASP.NET Core, C#, and SQL Server.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="expertise-card text-center p-4 h-100">
+                    <div class="icon-wrapper mb-3">
+                        <i class="bi bi-palette expertise-icon"></i>
+                    </div>
+                    <h3 class="h4">Frontend Development</h3>
+                    <p>Building responsive and accessible user interfaces with HTML, CSS, and JavaScript.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="expertise-card text-center p-4 h-100">
+                    <div class="icon-wrapper mb-3">
+                        <i class="bi bi-diagram-3 expertise-icon"></i>
+                    </div>
+                    <h3 class="h4">Database Design</h3>
+                    <p>Designing efficient database schemas and optimizing queries for performance.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Projects -->
+<section class="featured-projects py-5">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-5">
+            <h2 class="section-title">Featured Projects</h2>
+            <a asp-controller="Projects" asp-action="Index" class="btn btn-outline-primary">
+                View All <i class="bi bi-arrow-right ms-2"></i>
+            </a>
+        </div>
+
+        <div class="row g-4">
+            @if (ViewBag.FeaturedProjects != null && ViewBag.FeaturedProjects.Count > 0)
+            {
+                @foreach (var project in ViewBag.FeaturedProjects)
+                {
+                    <div class="col-lg-6">
+                        <div class="card project-card h-100 border-0 shadow-sm">
+                            <div class="position-relative">
+                                <img src="@project.ImageUrl" class="card-img-top" alt="@project.Title">
+                                <div class="project-overlay">
+                                    <a asp-controller="Projects" asp-action="Details" asp-route-id="@project.Id" class="btn btn-primary">View Details</a>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h3 class="card-title h5">@project.Title</h3>
+                                <p class="card-text">@project.Description</p>
+                                <div class="tech-stack">
+                                    @{
+                                        int techCount = 0;
+                                    }
+                                    @foreach (var tech in project.Technologies)
+                                    {
+                                        if (techCount < 3)
+                                        {
+                                            <span class="badge bg-secondary me-1">@tech</span>
+                                        }
+                                        techCount++;
+                                    }
+                                    @if (project.Technologies.Count > 3)
+                                    {
+                                        <span class="badge bg-light text-dark">+@(project.Technologies.Count - 3) more</span>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-12 text-center">
+                    <p class="text-muted">No featured projects to display. Add some from the admin panel!</p>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- Contact CTA Section -->
+<section class="contact-cta py-5 bg-primary text-white text-center">
+    <div class="container">
+        <h2 class="mb-4">Let's Work Together</h2>
+        <p class="lead mb-4">I'm always interested in hearing about new projects and opportunities.</p>
+        <a asp-controller="Contact" asp-action="Index" class="btn btn-light btn-lg">
+            <i class="bi bi-envelope me-2"></i>Get In Touch
+        </a>
+    </div>
+</section>

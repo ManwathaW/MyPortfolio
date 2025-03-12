@@ -1,0 +1,71 @@
+﻿@model Project
+@{
+    ViewData["Title"] = "Delete Project";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Delete Project</h1>
+    <a asp-action="Index" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left me-2"></i>Back to List
+    </a>
+</div>
+
+<div class="alert alert-danger">
+    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+    <strong>Warning:</strong> Are you sure you want to delete this project? This action cannot be undone.
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <img src="@Model.ImageUrl" alt="@Model.Title" class="img-fluid rounded mb-3">
+            </div>
+
+            <div class="col-md-8">
+                <h2>@Model.Title</h2>
+                <p class="text-muted">@Model.Description</p>
+
+                <dl class="row mt-3">
+                    <dt class="col-sm-3">Completion Date</dt>
+                    <dd class="col-sm-9">@Model.CompletionDate.ToString("MMMM dd, yyyy")</dd>
+
+                    <dt class="col-sm-3">Featured</dt>
+                    <dd class="col-sm-9">
+                        @if (Model.IsFeatured)
+                        {
+                            <span class="badge bg-success">Yes</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">No</span>
+                        }
+                    </dd>
+
+                    <dt class="col-sm-3">Technologies</dt>
+                    <dd class="col-sm-9">
+                        @if (Model.Technologies != null && Model.Technologies.Any())
+                        {
+                            @foreach (var tech in Model.Technologies)
+                            {
+                                <span class="badge bg-secondary me-1 mb-1">@tech</span>
+                            }
+                        }
+                        else
+                        {
+                            <span class="text-muted">None</span>
+                        }
+                    </dd>
+                </dl>
+
+                <form asp-action="Delete" class="mt-4">
+                    <input type="hidden" asp-for="Id" />
+                    <button type="submit" class="btn btn-danger">
+                        <i class="bi bi-trash me-2"></i>Confirm Delete
+                    </button>
+                    <a asp-action="Index" class="btn btn-outline-secondary ms-2">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

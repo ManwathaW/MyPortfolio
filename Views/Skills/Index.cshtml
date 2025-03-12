@@ -1,5 +1,35 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model Dictionary<string, List<Skill>>
 @{
+    ViewData["Title"] = "My Skills";
+}
+
+<h1>@ViewData["Title"]</h1>
+<p class="lead">These are the technologies and tools I work with.</p>
+
+@foreach (var category in Model)
+{
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3>@category.Key</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                @foreach (var skill in category.Value)
+                {
+                    <div class="col-md-6 mb-3">
+                        <h5>@skill.Name</h5>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar"
+                                 style="width: @(skill.ProficiencyLevel * 20)%"
+                                 aria-valuenow="@skill.ProficiencyLevel"
+                                 aria-valuemin="0"
+                                 aria-valuemax="5">
+                                @skill.ProficiencyLevel/5
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
 }

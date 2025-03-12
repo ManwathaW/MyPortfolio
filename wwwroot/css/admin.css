@@ -1,0 +1,121 @@
+/* Admin Panel Styles */
+
+body {
+    background-color: #f5f5f5;
+}
+
+.sidebar {
+    min-height: calc(100vh - 56px);
+    background-color: #343a40;
+    padding-top: 20px;
+}
+
+    .sidebar .nav-link {
+        color: #ced4da;
+        padding: 0.75rem 1rem;
+        border-left: 3px solid transparent;
+    }
+
+        .sidebar .nav-link:hover {
+            color: #fff;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-left-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .sidebar .nav-link.active {
+            color: #fff;
+            background-color: rgba(0, 123, 255, 0.2);
+            border-left-color: #007bff;
+        }
+
+        .sidebar .nav-link i {
+            margin-right: 10px;
+        }
+
+.dashboard-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 10px;
+    overflow: hidden;
+    border: none;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.1);
+}
+
+    .dashboard-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0, 123, 255, 0.2);
+    }
+
+    .dashboard-card .card-header {
+        font-weight: 500;
+        background-color: rgba(0, 123, 255, 0.1);
+        border-bottom: none;
+    }
+
+    .dashboard-card .card-icon {
+        font-size: 3rem;
+        color: #007bff;
+        opacity: 0.7;
+    }
+
+    .dashboard-card .card-footer {
+        background-color: rgba(0, 123, 255, 0.05);
+        border-top: none;
+    }
+
+.table-admin {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.1);
+}
+
+    .table-admin thead {
+        background-color: rgba(0, 123, 255, 0.1);
+    }
+
+    .table-admin th {
+        font-weight: 500;
+        border-top: none;
+    }
+
+    .table-admin tbody tr {
+        transition: all 0.2s ease;
+    }
+
+        .table-admin tbody tr:hover {
+            background-color: rgba(0, 123, 255, 0.05);
+        }
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+    .form-group label {
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+    }
+
+.card-form {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.1);
+    padding: 1.5rem;
+}
+
+.chart-container {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.1);
+    padding: 1rem;
+}
+
+.btn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+}

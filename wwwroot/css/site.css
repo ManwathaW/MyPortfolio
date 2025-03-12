@@ -1,31 +1,540 @@
-html {
-  font-size: 14px;
+/* Custom Variables */
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --accent-color: #17a2b8;
+    --dark-color: #343a40;
+    --light-color: #f8f9fa;
+    --blue-shadow: rgba(0, 123, 255, 0.3); /* Blue shadow with transparency */
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
+/* General Styles */
 body {
-  margin-bottom: 60px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    line-height: 1.6;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+/* Hero Section */
+.jumbotron {
+    background-color: var(--light-color);
+    padding: 4rem 2rem;
+    margin-bottom: 2rem;
+    border-radius: 0.3rem;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+/* Cards */
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px var(--blue-shadow);
+    }
+
+/* Progress Bars */
+.progress {
+    height: 25px;
+    margin-bottom: 1rem;
+}
+
+.progress-bar {
+    background-color: var(--primary-color);
+}
+
+/* Footer */
+.footer {
+    background-color: var(--light-color);
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+/* Project badges */
+.badge {
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+/* Profile image */
+.profile-img {
+    max-width: 100%;
+    border-radius: 50%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767.98px) {
+    .jumbotron {
+        padding: 2rem 1rem;
+    }
+}
+
+/* Text gradient effect for name */
+.text-gradient {
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* Profile image styling */
+.profile-main {
+    max-width: 80%;
+    border: 8px solid white;
+    box-shadow: 0 10px 30px var(--blue-shadow);
+    transition: box-shadow 0.3s ease;
+}
+
+    .profile-main:hover {
+        box-shadow: 0 10px 30px var(--blue-shadow), 0 0 0 5px rgba(0, 123, 255, 0.1);
+    }
+
+/* Floating tech icons */
+.tech-icon {
+    position: absolute;
+    background-color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 5px 15px var(--blue-shadow);
+    font-size: 1.5rem;
+    animation: float 3s ease-in-out infinite, pulse-shadow 3s ease-in-out infinite;
+}
+
+.tech-icon-1 {
+    top: 10%;
+    right: 10%;
+    color: #e44d26; /* HTML color */
+    animation-delay: 0s, 0.5s;
+}
+
+.tech-icon-2 {
+    top: 30%;
+    right: 0;
+    color: #264de4; /* CSS color */
+    animation-delay: 0.5s, 0s;
+}
+
+.tech-icon-3 {
+    bottom: 30%;
+    right: 5%;
+    color: #684D95; /* C# color */
+    animation-delay: 1s, 1.5s;
+}
+
+.tech-icon-4 {
+    bottom: 10%;
+    left: 30%;
+    color: #00618a; /* Database color */
+    animation-delay: 1.5s, 2s;
+}
+
+.tech-icon-5 {
+    top: 15%;
+    left: 10%;
+    color: #f7df1e; /* JavaScript color */
+    animation-delay: 2s, 0.7s;
+}
+
+/* Additional floating tech icons */
+.tech-icon-6 {
+    top: 5%;
+    left: 35%;
+    color: #0078D4; /* Azure blue */
+    animation-delay: 0.7s, 1.2s;
+}
+
+.tech-icon-7 {
+    bottom: 15%;
+    left: 5%;
+    color: #7952B3; /* Bootstrap purple */
+    animation-delay: 1.2s, 0.3s;
+}
+
+.tech-icon-8 {
+    top: 50%;
+    left: 0;
+    color: #61DAFB; /* React blue */
+    animation-delay: 1.8s, 1.8s;
+}
+
+.tech-icon-9 {
+    bottom: 5%;
+    right: 35%;
+    color: #FF9900; /* AWS orange */
+    animation-delay: 0.3s, 2.2s;
+}
+
+.tech-icon-10 {
+    top: 40%;
+    right: 25%;
+    color: #F05032; /* Git orange */
+    animation-delay: 1.4s, 0.9s;
+}
+
+.tech-icon-11 {
+    top: 25%;
+    left: 25%;
+    color: #0078D7; /* Windows blue */
+    animation-delay: 0.9s, 1.4s;
+}
+
+.tech-icon-12 {
+    bottom: 35%;
+    right: 15%;
+    color: #5C2D91; /* Visual Studio purple */
+    animation-delay: 2.2s, 2.5s;
+}
+
+/* Make icons more visible on small screens */
+@media (max-width: 767.98px) {
+    .tech-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+
+    /* Adjust positions for better visibility on mobile */
+    .tech-icon-1, .tech-icon-5, .tech-icon-6, .tech-icon-11 {
+        top: 10%;
+    }
+
+    .tech-icon-3, .tech-icon-8, .tech-icon-10, .tech-icon-12 {
+        top: auto;
+        bottom: 25%;
+    }
+
+    .tech-icon-4, .tech-icon-7, .tech-icon-9 {
+        bottom: 5%;
+    }
+}
+
+/* Add some hover effects to make icons more interactive */
+.tech-icon:hover {
+    transform: scale(1.2);
+    z-index: 10;
+    box-shadow: 0 5px 20px var(--blue-shadow);
+}
+
+/* Icon labels */
+.tech-icon-label {
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--dark-color);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.7rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+}
+
+.tech-icon:hover .tech-icon-label {
+    opacity: 1;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse-shadow {
+    0% {
+        box-shadow: 0 5px 15px rgba(0, 123, 255, 0.2);
+    }
+
+    50% {
+        box-shadow: 0 5px 25px rgba(0, 123, 255, 0.5);
+    }
+
+    100% {
+        box-shadow: 0 5px 15px rgba(0, 123, 255, 0.2);
+    }
+}
+
+/* Section styling */
+.section-title {
+    position: relative;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+    .section-title::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 3px;
+        width: 50px;
+        background-color: var(--primary-color);
+    }
+
+.skills-overview .section-title::after,
+.contact-cta .section-title::after {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Expertise cards */
+.expertise-card {
+    background-color: white;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.1);
+}
+
+    .expertise-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px var(--blue-shadow);
+    }
+
+.icon-wrapper {
+    background-color: rgba(0, 123, 255, 0.1);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.expertise-icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+}
+
+/* Project cards */
+.project-card {
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.1) !important;
+}
+
+    .project-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px var(--blue-shadow) !important;
+    }
+
+    .project-card .card-img-top {
+        height: 200px;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .project-card:hover .card-img-top {
+        transform: scale(1.05);
+    }
+
+.project-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.project-card:hover .project-overlay {
+    opacity: 1;
+}
+
+.tech-stack {
+    margin-top: 10px;
+}
+
+/* Contact CTA section */
+.contact-cta {
+    background-image: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+}
+
+/* Technology Cloud */
+.tech-cloud-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.tech-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 120px;
+}
+
+    .tech-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px var(--blue-shadow);
+    }
+
+    .tech-item i {
+        font-size: 2rem;
+        margin-bottom: 8px;
+        color: var(--primary-color);
+    }
+
+    .tech-item span {
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+
+/* Add a blue glow to buttons on hover */
+.btn-primary:hover {
+    box-shadow: 0 0 15px var(--blue-shadow);
+}
+
+/* Navigation bar enhancement */
+.navbar {
+    box-shadow: 0 2px 10px var(--blue-shadow);
+}
+
+/* Add subtle blue shadow to form controls on focus */
+.form-control:focus {
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Add blue shadow to modal and popovers */
+.modal-content {
+    box-shadow: 0 5px 30px var(--blue-shadow);
+}
+
+/* Add a subtle blue outline to images on hover */
+img:hover {
+    box-shadow: 0 0 15px var(--blue-shadow);
+}
+
+/* Add blue tint to progress bars */
+.progress {
+    box-shadow: inset 0 1px 3px rgba(0, 123, 255, 0.1);
+}
+
+/* Enhance nav items with subtle transitions */
+.nav-link {
+    transition: color 0.3s, transform 0.3s;
+    position: relative;
+}
+
+    .nav-link:hover {
+        transform: translateY(-2px);
+    }
+
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: var(--primary-color);
+        transition: width 0.3s;
+    }
+
+    .nav-link:hover::after {
+        width: 100%;
+    }
+
+/* Style scrollbar for webkit browsers */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 10px;
+}
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #0056b3;
+    }
+/* Projects Filter Styles */
+.filter-badge {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+    .filter-badge:hover {
+        transform: translateY(-2px);
+    }
+
+/* List View Project Items */
+.list-group-item {
+    transition: all 0.3s ease;
+}
+
+    .list-group-item:hover {
+        transform: translateX(5px);
+        box-shadow: 0 2px 8px var(--blue-shadow);
+    }
+
+    .list-group-item img {
+        object-fit: cover;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    .list-group-item:hover img {
+        transform: scale(1.05);
+        box-shadow: 0 5px 15px var(--blue-shadow);
+    }
+
+/* Pagination Styles */
+.pagination .page-link {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+    .pagination .page-link:hover {
+        background-color: rgba(0, 123, 255, 0.1);
+        transform: translateY(-2px);
+        box-shadow: 0 3px 10px var(--blue-shadow);
+    }
+
+.pagination .page-item.active .page-link {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 3px 10px var(--blue-shadow);
+}
+
+/* Project Cards in Grid View */
+.project-card .card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Highlight featured projects with subtle border */
+.project-card.featured {
+    border-color: var(--primary-color);
+    border-width: 2px;
 }
