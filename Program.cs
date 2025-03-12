@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Portfolio.Data;
 
 namespace Portfolio
@@ -15,8 +16,7 @@ namespace Portfolio
 
             // Add DbContext
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    builder.Configuration.GetConnectionString("DefaultConnection")));
+                   options.UseSqlite(builder.Configuration.GetConnectionString("SqliteConnection")));
 
             // Add Identity
             builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
@@ -73,7 +73,8 @@ namespace Portfolio
                     var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
                     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 
-                    context.Database.Migrate();
+                    context.Database.EnsureCreated();
+
 
                     // Seed admin user and role
                     SeedAdminUser(userManager, roleManager).Wait();
