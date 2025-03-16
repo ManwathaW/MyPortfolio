@@ -20,9 +20,9 @@ namespace Portfolio.Controllers
         public async Task<IActionResult> Index()
         {
             // You can pass your basic info as ViewData
-            ViewData["Name"] = "MANWATHA WANGA COMFORT"; // Replace with your name
+            ViewData["Name"] = "MANWATHA WANGA COMFORT"; 
             ViewData["Title"] = "Junior .NET Developer";
-            ViewData["Summary"] = "I build high-quality web and mobile applications using ASP.NET Core,.NET MAUI core, C#, and modern frontend technologies. With a focus on clean code and user experience, I deliver solutions that make a difference.";
+            ViewData["Summary"] = "I build high-quality web and mobile applications With a focus on clean code and user experience, I deliver solutions that make a difference.";
 
             // Get featured projects for the homepage
             var projects = await _context.Projects.ToListAsync();

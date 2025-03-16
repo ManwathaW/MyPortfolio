@@ -35,31 +35,10 @@ namespace Portfolio.Data
                     )
                 );
 
-            // Seed some initial data if needed
-            SeedData(modelBuilder);
+        
         }
 
-        private void SeedData(ModelBuilder modelBuilder)
-        {
-            // Seed an admin user
-            // Note: In production, use a secure password and proper hashing
-
-            // Seed some initial projects
-            modelBuilder.Entity<Project>().HasData(
-                new Project
-                {
-                    Id = 1,
-                    Title = "PROFILE",
-                    Description = "A full-stack e-commerce solution with shopping cart and payment integration.",
-                    ImageUrl = "/images/projects/ecommerce.jpg",
-                    ProjectUrl = "https://example.com/ecommerce",
-                    GitHubUrl = "https://github.com/yourusername/ecommerce",
-                    Technologies = new List<string> { "ASP.NET Core", "C#", "Entity Framework", "SQL Server", "JavaScript", "Bootstrap" },
-                    CompletionDate = new DateTime(2023, 6, 15),
-                    IsFeatured = true
-                }
-            );
-        }
+      
     }
 }
 
