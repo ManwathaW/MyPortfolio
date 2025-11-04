@@ -23,7 +23,13 @@ namespace Portfolio.Models
         [Display(Name = "GitHub URL")]
         public string GitHubUrl { get; set; }
 
-        public List<string> Technologies { get; set; } = new List<string>();
+        private List<string> _technologies = new List<string>();
+
+        public List<string> Technologies
+        {
+            get { return _technologies ?? new List<string>(); }
+            set { _technologies = value ?? new List<string>(); }
+        }
 
         [Display(Name = "Completion Date")]
         [DataType(DataType.Date)]

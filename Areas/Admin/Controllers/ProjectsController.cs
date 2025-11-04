@@ -12,18 +12,32 @@ namespace Portfolio.Areas.Admin.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment _hostEnvironment;
+        private readonly ILogger<ProjectsController> _logger;
 
-        public ProjectsController(ApplicationDbContext context, IWebHostEnvironment hostEnvironment)
+        public ProjectsController(
+            ApplicationDbContext context,
+            IWebHostEnvironment hostEnvironment,
+            ILogger<ProjectsController> logger)
         {
             _context = context;
             _hostEnvironment = hostEnvironment;
+            _logger = logger;
         }
 
         // GET: Admin/Projects
         public async Task<IActionResult> Index()
         {
-            var projects = await _context.Projects.ToListAsync();
-            return View(projects.OrderByDescending(p => p.CompletionDate).ToList());
+            try
+            {
+                var projects = await _context.Projects.ToListAsync();
+                return View(projects.OrderByDescending(p => p.CompletionDate).ToList());
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error loading projects index");
+                TempData["ErrorMessage"] = "Error loading projects: " + ex.Message;
+                return View(new List<Project>());
+            }
         }
 
         // GET: Admin/Projects/Details/5
@@ -34,15 +48,24 @@ namespace Portfolio.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var project = await _context.Projects
-                .FirstOrDefaultAsync(m => m.Id == id);
-
-            if (project == null)
+            try
             {
-                return NotFound();
-            }
+                var project = await _context.Projects
+                    .FirstOrDefaultAsync(m => m.Id == id);
 
-            return View(project);
+                if (project == null)
+                {
+                    return NotFound();
+                }
+
+                return View(project);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error loading project details");
+                TempData["ErrorMessage"] = "Error loading project details: " + ex.Message;
+                return RedirectToAction(nameof(Index));
+            }
         }
 
         // GET: Admin/Projects/Create
@@ -56,48 +79,84 @@ namespace Portfolio.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Title,Description,ProjectUrl,GitHubUrl,CompletionDate,IsFeatured")] Project project, IFormFile imageFile, string technologies)
         {
-            if (ModelState.IsValid)
+            try
             {
-                // Handle Technologies (comma-separated string)
-                if (!string.IsNullOrEmpty(technologies))
+                if (ModelState.IsValid)
                 {
-                    project.Technologies = technologies.Split(',')
-                        .Select(t => t.Trim())
-                        .Where(t => !string.IsNullOrEmpty(t))
-                        .ToList();
-                }
-                else
-                {
-                    project.Technologies = new List<string>();
-                }
+                    _logger.LogInformation("Creating new project: {Title}", project.Title);
 
-                // Handle Image Upload
-                if (imageFile != null && imageFile.Length > 0)
-                {
-                    var uploadsFolder = Path.Combine(_hostEnvironment.WebRootPath, "images", "projects");
-                    Directory.CreateDirectory(uploadsFolder); // Ensure directory exists
-
-                    var uniqueFileName = Guid.NewGuid().ToString() + "_" + imageFile.FileName;
-                    var filePath = Path.Combine(uploadsFolder, uniqueFileName);
-
-                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    // Handle Technologies (comma-separated string)
+                    if (!string.IsNullOrEmpty(technologies))
                     {
-                        await imageFile.CopyToAsync(fileStream);
+                        project.Technologies = technologies.Split(',')
+                            .Select(t => t.Trim())
+                            .Where(t => !string.IsNullOrEmpty(t))
+                            .ToList();
+
+                        _logger.LogInformation("Technologies: {Technologies}",
+                            string.Join(", ", project.Technologies));
+                    }
+                    else
+                    {
+                        project.Technologies = new List<string>();
                     }
 
-                    project.ImageUrl = $"/images/projects/{uniqueFileName}";
-                }
-                else
-                {
-                    // Default image if none provided
-                    project.ImageUrl = "/images/projects/default-project.jpg";
-                }
+                    // Handle Image Upload
+                    if (imageFile != null && imageFile.Length > 0)
+                    {
+                        _logger.LogInformation("Processing image upload: {FileName}", imageFile.FileName);
 
-                _context.Add(project);
-                await _context.SaveChangesAsync();
-                TempData["SuccessMessage"] = "Project created successfully!";
-                return RedirectToAction(nameof(Index));
+                        try
+                        {
+                            var uploadsFolder = Path.Combine(_hostEnvironment.WebRootPath, "images", "projects");
+
+                            // Ensure directory exists
+                            if (!Directory.Exists(uploadsFolder))
+                            {
+                                _logger.LogInformation("Creating directory: {Path}", uploadsFolder);
+                                Directory.CreateDirectory(uploadsFolder);
+                            }
+
+                            var uniqueFileName = Guid.NewGuid().ToString() + "_" + imageFile.FileName;
+                            var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                            _logger.LogInformation("Saving image to: {Path}", filePath);
+
+                            using (var fileStream = new FileStream(filePath, FileMode.Create))
+                            {
+                                await imageFile.CopyToAsync(fileStream);
+                            }
+
+                            project.ImageUrl = $"/images/projects/{uniqueFileName}";
+                            _logger.LogInformation("Image saved, URL set to: {Url}", project.ImageUrl);
+                        }
+                        catch (Exception ex)
+                        {
+                            _logger.LogError(ex, "Error saving image");
+                            project.ImageUrl = "/images/projects/default-project.jpg";
+                        }
+                    }
+                    else
+                    {
+                        // Default image if none provided
+                        project.ImageUrl = "/images/projects/default-project.jpg";
+                    }
+
+                    _context.Add(project);
+                    await _context.SaveChangesAsync();
+
+                    _logger.LogInformation("Project created successfully: {Id}", project.Id);
+                    TempData["SuccessMessage"] = "Project created successfully!";
+
+                    return RedirectToAction(nameof(Index));
+                }
             }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error creating project");
+                ModelState.AddModelError("", "An error occurred while saving the project: " + ex.Message);
+            }
+
             return View(project);
         }
 
@@ -109,14 +168,25 @@ namespace Portfolio.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var project = await _context.Projects.FindAsync(id);
-            if (project == null)
+            try
             {
-                return NotFound();
-            }
+                var project = await _context.Projects.FindAsync(id);
+                if (project == null)
+                {
+                    return NotFound();
+                }
 
-            ViewBag.Technologies = string.Join(",", project.Technologies);
-            return View(project);
+                // Convert technologies to comma-separated string for the form
+                ViewBag.Technologies = string.Join(",", project.Technologies ?? new List<string>());
+
+                return View(project);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error loading project for edit");
+                TempData["ErrorMessage"] = "Error loading project for editing: " + ex.Message;
+                return RedirectToAction(nameof(Index));
+            }
         }
 
         // POST: Admin/Projects/Edit/5
@@ -129,12 +199,21 @@ namespace Portfolio.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            try
             {
-                try
+                if (ModelState.IsValid)
                 {
-                    // Get existing project to preserve image if no new one uploaded
-                    var existingProject = await _context.Projects.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
+                    _logger.LogInformation("Updating project: {Id}", id);
+
+                    // Get existing project to preserve data
+                    var existingProject = await _context.Projects
+                        .AsNoTracking()
+                        .FirstOrDefaultAsync(p => p.Id == id);
+
+                    if (existingProject == null)
+                    {
+                        return NotFound();
+                    }
 
                     // Handle Technologies (comma-separated string)
                     if (!string.IsNullOrEmpty(technologies))
@@ -152,26 +231,32 @@ namespace Portfolio.Areas.Admin.Controllers
                     // Handle Image Upload
                     if (imageFile != null && imageFile.Length > 0)
                     {
-                        var uploadsFolder = Path.Combine(_hostEnvironment.WebRootPath, "images", "projects");
-                        Directory.CreateDirectory(uploadsFolder); // Ensure directory exists
+                        _logger.LogInformation("Processing updated image: {FileName}", imageFile.FileName);
 
-                        var uniqueFileName = Guid.NewGuid().ToString() + "_" + imageFile.FileName;
-                        var filePath = Path.Combine(uploadsFolder, uniqueFileName);
-
-                        using (var fileStream = new FileStream(filePath, FileMode.Create))
+                        try
                         {
-                            await imageFile.CopyToAsync(fileStream);
-                        }
+                            var uploadsFolder = Path.Combine(_hostEnvironment.WebRootPath, "images", "projects");
+                            // Ensure directory exists
+                            if (!Directory.Exists(uploadsFolder))
+                            {
+                                Directory.CreateDirectory(uploadsFolder);
+                            }
 
-                        // Delete old image if it exists and isn't the default
-                        if (!string.IsNullOrEmpty(existingProject.ImageUrl) &&
-                            !existingProject.ImageUrl.Contains("default-project.jpg") &&
-                            System.IO.File.Exists(Path.Combine(_hostEnvironment.WebRootPath, existingProject.ImageUrl.TrimStart('/'))))
+                            var uniqueFileName = Guid.NewGuid().ToString() + "_" + imageFile.FileName;
+                            var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                            using (var fileStream = new FileStream(filePath, FileMode.Create))
+                            {
+                                await imageFile.CopyToAsync(fileStream);
+                            }
+
+                            project.ImageUrl = $"/images/projects/{uniqueFileName}";
+                        }
+                        catch (Exception ex)
                         {
-                            System.IO.File.Delete(Path.Combine(_hostEnvironment.WebRootPath, existingProject.ImageUrl.TrimStart('/')));
+                            _logger.LogError(ex, "Error updating image");
+                            project.ImageUrl = existingProject.ImageUrl; // Keep existing image on error
                         }
-
-                        project.ImageUrl = $"/images/projects/{uniqueFileName}";
                     }
                     else
                     {
@@ -181,21 +266,33 @@ namespace Portfolio.Areas.Admin.Controllers
 
                     _context.Update(project);
                     await _context.SaveChangesAsync();
+
+                    _logger.LogInformation("Project updated successfully");
                     TempData["SuccessMessage"] = "Project updated successfully!";
+
+                    return RedirectToAction(nameof(Index));
                 }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ProjectExists(project.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
             }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                if (!ProjectExists(project.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    _logger.LogError(ex, "Concurrency error updating project");
+                    ModelState.AddModelError("", "This project was updated by another user. Please try again.");
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error updating project");
+                ModelState.AddModelError("", "An error occurred while updating the project: " + ex.Message);
+            }
+
+            // If we got this far, something failed, redisplay form
+            ViewBag.Technologies = technologies;
             return View(project);
         }
 
@@ -207,15 +304,24 @@ namespace Portfolio.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var project = await _context.Projects
-                .FirstOrDefaultAsync(m => m.Id == id);
-
-            if (project == null)
+            try
             {
-                return NotFound();
-            }
+                var project = await _context.Projects
+                    .FirstOrDefaultAsync(m => m.Id == id);
 
-            return View(project);
+                if (project == null)
+                {
+                    return NotFound();
+                }
+
+                return View(project);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error loading project for deletion");
+                TempData["ErrorMessage"] = "Error loading project for deletion: " + ex.Message;
+                return RedirectToAction(nameof(Index));
+            }
         }
 
         // POST: Admin/Projects/Delete/5
@@ -223,20 +329,51 @@ namespace Portfolio.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var project = await _context.Projects.FindAsync(id);
-
-            // Delete project image if it exists and isn't the default
-            if (project != null && !string.IsNullOrEmpty(project.ImageUrl) &&
-                !project.ImageUrl.Contains("default-project.jpg") &&
-                System.IO.File.Exists(Path.Combine(_hostEnvironment.WebRootPath, project.ImageUrl.TrimStart('/'))))
+            try
             {
-                System.IO.File.Delete(Path.Combine(_hostEnvironment.WebRootPath, project.ImageUrl.TrimStart('/')));
-            }
+                var project = await _context.Projects.FindAsync(id);
 
-            _context.Projects.Remove(project);
-            await _context.SaveChangesAsync();
-            TempData["SuccessMessage"] = "Project deleted successfully!";
-            return RedirectToAction(nameof(Index));
+                if (project == null)
+                {
+                    return NotFound();
+                }
+
+                _logger.LogInformation("Deleting project: {Id}", id);
+
+                // Delete project image if it exists and isn't the default
+                if (!string.IsNullOrEmpty(project.ImageUrl) &&
+                    !project.ImageUrl.Contains("default-project.jpg"))
+                {
+                    var imagePath = Path.Combine(_hostEnvironment.WebRootPath, project.ImageUrl.TrimStart('/'));
+
+                    if (System.IO.File.Exists(imagePath))
+                    {
+                        try
+                        {
+                            System.IO.File.Delete(imagePath);
+                            _logger.LogInformation("Deleted project image: {Path}", imagePath);
+                        }
+                        catch (Exception ex)
+                        {
+                            _logger.LogError(ex, "Failed to delete project image");
+                            // Continue with project deletion even if image deletion fails
+                        }
+                    }
+                }
+
+                _context.Projects.Remove(project);
+                await _context.SaveChangesAsync();
+
+                TempData["SuccessMessage"] = "Project deleted successfully!";
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error deleting project");
+                TempData["ErrorMessage"] = "Error deleting project: " + ex.Message;
+                return RedirectToAction(nameof(Index));
+            }
         }
 
         private bool ProjectExists(int id)

@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
 using Portfolio.Data;
+using Portfolio.Models;
+using System;
+using System.Collections.Generic;
 
 namespace Portfolio
 {
@@ -73,8 +75,30 @@ namespace Portfolio
                     var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
                     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 
+                    // Check if database exists and create it if it doesn't
                     context.Database.EnsureCreated();
 
+                    // Check if we need to seed a sample project (only if no projects exist)
+                    if (!context.Projects.Any())
+                    {
+                        // Add a sample project
+                        var sampleProject = new Project
+                        {
+                            Title = "Sample Portfolio Project",
+                            Description = "This is a sample project created automatically when your portfolio was deployed.",
+                            ImageUrl = "/images/projects/default-project.jpg",
+                            ProjectUrl = "https://example.com",
+                            GitHubUrl = "https://github.com/yourusername/portfolio",
+                            Technologies = new List<string> { "ASP.NET Core", "C#", "SQLite", "Bootstrap" },
+                            CompletionDate = DateTime.Now,
+                            IsFeatured = true
+                        };
+
+                        context.Projects.Add(sampleProject);
+                        context.SaveChanges();
+
+                        Console.WriteLine("Added sample project to database");
+                    }
 
                     // Seed admin user and role
                     SeedAdminUser(userManager, roleManager).Wait();
@@ -83,6 +107,10 @@ namespace Portfolio
                 {
                     var logger = services.GetRequiredService<ILogger<Program>>();
                     logger.LogError(ex, "An error occurred while seeding the database.");
+
+                    // Also log to console for deployment logs
+                    Console.WriteLine($"Database error: {ex.Message}");
+                    Console.WriteLine($"Stack trace: {ex.StackTrace}");
                 }
             }
 

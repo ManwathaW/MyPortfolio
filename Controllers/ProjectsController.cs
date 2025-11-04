@@ -1,26 +1,70 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Portfolio.Data;
 using Portfolio.Models;
 
 namespace Portfolio.Controllers
 {
     public class ProjectsController : Controller
     {
-        private readonly ApplicationDbContext _context;
-
-        public ProjectsController(ApplicationDbContext context)
+        // Hardcoded projects list with your COMMUNIZEN project
+        private static List<Project> _projects = new List<Project>
         {
-            _context = context;
-        }
+            new Project
+            {
+                Id = 1,
+                Title = "COMMUNIZEN - Mental Health Support Platform",
+                Description = "Developed an innovative cross-platform mobile application providing mental health support, resources, and professional connections with focus on accessibility, security, and user experience. " +
+                             "The application features real-time chat functionality for immediate counselor connection, an appointment booking system with calendar integration, " +
+                             "and personalized wellness plans with AI-driven recommendations. Built using .NET MAUI with MVVM architecture, Firebase backend for authentication " +
+                             "and real-time data synchronization, and Google Maps API integration for location-based practitioner search.",
+                ImageUrl = "/images/communizen.png", // Update with actual image path
+                ProjectUrl = "https://drive.google.com/file/d/1COjWWSFxzrMRuFK-aDN2KE6d89i7iYel/view?usp=drivesdk", // Add if you have a live demo
+                GitHubUrl = "https://drive.google.com/file/d/1COjWWSFxzrMRuFK-aDN2KE6d89i7iYel/view?usp=drivesdk",
+                Technologies = new List<string>
+                {
+                    ".NET MAUI",
+                    "C#",
+                    "MVVM Pattern",
+                    "XAML",
+                    "Firebase Authentication",
+                    "Firestore Database",
+                    "Google Maps API",
+                    "RESTful API",
+                    "Real-time Chat",
+                    "Cross-Platform Development"
+                },
+                CompletionDate = new DateTime(2024, 12, 1),
+                IsFeatured = true
+            },
+            // Add more projects as needed
+            new Project
+            {
+                Id = 2,
+                Title = "Portfolio Website",
+                Description = "A responsive personal portfolio website built with ASP.NET Core MVC showcasing projects, skills, and professional experience. " +
+                             "Features include dynamic project filtering, admin dashboard for content management, and modern UI design with Bootstrap.",
+                ImageUrl = "/images/portfolio.png",
+                ProjectUrl = "", // Your portfolio URL
+                GitHubUrl = "https://github.com/ManwathaW/MyPortfolio.git", // Your portfolio GitHub URL
+                Technologies = new List<string>
+                {
+                    "ASP.NET Core MVC",
+                    "C#",
+                    "Entity Framework",
+                    "SQLite",
+                    "Bootstrap",
+                    "HTML5",
+                    "CSS3",
+                    "JavaScript"
+                },
+                CompletionDate = new DateTime(2025, 1, 15),
+                IsFeatured = true
+            }
+        };
 
-        public async Task<IActionResult> Index(string technology = null, string viewMode = "grid", int page = 1, int pageSize = 4)
+        public IActionResult Index(string technology = null, string viewMode = "grid", int page = 1, int pageSize = 4)
         {
-            // First fetch all projects to extract technologies
-            var allProjects = await _context.Projects.ToListAsync();
-
             // Get all unique technologies for the filter dropdown
-            var allTechnologies = allProjects
+            var allTechnologies = _projects
                 .SelectMany(p => p.Technologies)
                 .Distinct()
                 .OrderBy(t => t)
@@ -31,13 +75,13 @@ namespace Portfolio.Controllers
             // Filter projects by technology if selected
             if (!string.IsNullOrEmpty(technology))
             {
-                filteredProjects = allProjects
+                filteredProjects = _projects
                     .Where(p => p.Technologies.Contains(technology))
                     .ToList();
             }
             else
             {
-                filteredProjects = allProjects;
+                filteredProjects = _projects;
             }
 
             // Calculate pagination values
@@ -71,9 +115,9 @@ namespace Portfolio.Controllers
             return View(viewModel);
         }
 
-        public async Task<IActionResult> Details(int id)
+        public IActionResult Details(int id)
         {
-            var project = await _context.Projects.FirstOrDefaultAsync(p => p.Id == id);
+            var project = _projects.FirstOrDefault(p => p.Id == id);
             if (project == null)
             {
                 return NotFound();
