@@ -16,7 +16,7 @@ namespace Portfolio.Controllers
                              "The application features real-time chat functionality for immediate counselor connection, an appointment booking system with calendar integration, " +
                              "and personalized wellness plans with AI-driven recommendations. Built using .NET MAUI with MVVM architecture, Firebase backend for authentication " +
                              "and real-time data synchronization, and Google Maps API integration for location-based practitioner search.",
-                ImageUrl = "/images/communizen.png", // Update with actual image path
+                ImageUrl = "/Images/communizen.png", // Update with actual image path
                 ProjectUrl = "https://drive.google.com/file/d/1COjWWSFxzrMRuFK-aDN2KE6d89i7iYel/view?usp=drivesdk", // Add if you have a live demo
                 GitHubUrl = "https://drive.google.com/file/d/1COjWWSFxzrMRuFK-aDN2KE6d89i7iYel/view?usp=drivesdk",
                 Technologies = new List<string>
@@ -42,7 +42,7 @@ namespace Portfolio.Controllers
                 Title = "Portfolio Website",
                 Description = "A responsive personal portfolio website built with ASP.NET Core MVC showcasing projects, skills, and professional experience. " +
                              "Features include dynamic project filtering, admin dashboard for content management, and modern UI design with Bootstrap.",
-                ImageUrl = "/images/portfolio.png",
+                ImageUrl = "/Images/portfolio.png",
                 ProjectUrl = "", // Your portfolio URL
                 GitHubUrl = "https://github.com/ManwathaW/MyPortfolio.git", // Your portfolio GitHub URL
                 Technologies = new List<string>

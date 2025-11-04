@@ -16,7 +16,7 @@ namespace Portfolio.Controllers
                 Id = 1,
                 Title = "COMMUNIZEN - Mental Health Support Platform",
                 Description = "Innovative cross-platform mobile application providing comprehensive mental health support with real-time chat, appointment booking, and AI-driven wellness plans.",
-                ImageUrl = "/images/communizen.png",
+                ImageUrl = "/Images/communizen.png",
                 ProjectUrl = "",
                 GitHubUrl = "https://github.com/ManwathaW/CommunizenV2.git",
                 Technologies = new List<string>
@@ -36,7 +36,7 @@ namespace Portfolio.Controllers
                 Id = 2,
                 Title = "Portfolio Website",
                 Description = "Responsive personal portfolio website built with ASP.NET Core MVC showcasing projects, skills, and professional experience with admin dashboard.",
-                ImageUrl = "/images/portfolio.png",
+                ImageUrl = "/Images/portfolio.png",
                 ProjectUrl = "",
                 GitHubUrl = "",
                 Technologies = new List<string>
@@ -61,10 +61,9 @@ namespace Portfolio.Controllers
             // Your personal information
             ViewData["Name"] = "MANWATHA WANGA COMFORT";
             ViewData["Title"] = "Full Stack Developer";
-            ViewData["Summary"] = "Results-driven Full Stack Developer with expertise in .NET, PHP, and WordPress, " +
-                "specializing in scalable web and mobile solutions using C#, ASP.NET Core MVC, and CMS platforms. " +
-                "Awarded 2nd Place Overall Top Trainee (LDIL Programme 2025) and 2nd Place Winner (Limpopo Connection Hackathon 2024). " +
-                "Passionate about leveraging cloud technologies, AI, and machine learning to solve real-world problems.";
+            ViewData["Summary"] = "Full Stack Developer with expertise in .NET, PHP, and WordPress, " +
+                "specializing in scalable web and mobile solutions using C#, ASP.NET Core MVC, and CMS platforms. " +               
+                "Passionate about leveraging cloud technologies, AI, and machine learning to solve real world problems.";
 
             // Contact information
             ViewData["Email"] = "Manwathawanga312@gmail.com";
@@ -95,7 +94,7 @@ namespace Portfolio.Controllers
             ViewData["Name"] = "MANWATHA WANGA COMFORT";
             ViewData["Title"] = "Full Stack Developer";
 
-            ViewData["AboutMe"] = "I am a results-driven Full Stack Developer with a BSc in Computer Science and hands-on experience " +
+            ViewData["AboutMe"] = "results-driven Full Stack Developer with a BSc in Computer Science and hands-on experience " +
                 "in building scalable web applications using .NET, PHP, and WordPress. My journey in software development has been marked " +
                 "by recognition and achievement, including being awarded 2nd Place Overall Top Trainee in the LDIL Programme 2025 and " +
                 "2nd Place Winner at the Limpopo Connection Hackathon 2024.";
