@@ -11,18 +11,6 @@
                 <h2 class="h3 mb-4">@ViewData["Title"]</h2>
                 <p class="lead mb-4">@ViewData["Summary"]</p>
 
-                <!-- Achievements Badges -->
-                <div class="achievements mb-4">
-                    <div class="achievement-badge mb-2">
-                        <i class="bi bi-trophy-fill text-warning me-2"></i>
-                        <span class="fw-semibold">@ViewData["Achievement1"]</span>
-                    </div>
-                    <div class="achievement-badge">
-                        <i class="bi bi-trophy-fill text-warning me-2"></i>
-                        <span class="fw-semibold">@ViewData["Achievement2"]</span>
-                    </div>
-                </div>
-
                 <!-- Contact Info -->
                 <div class="contact-info mb-4 text-start">
                     <div class="d-flex align-items-center mb-2">
@@ -52,6 +40,7 @@
                     </a>
                 </div>
             </div>
+
             <div class="col-lg-6 mt-5 mt-lg-0">
                 <!-- Main profile image with tech icons floating around -->
                 <div class="position-relative profile-wrapper mx-auto">
@@ -62,13 +51,25 @@
                     <div class="tech-icon tech-icon-3" title="HTML5"><i class="bi bi-filetype-html"></i></div>
                     <div class="tech-icon tech-icon-4" title="CSS3"><i class="bi bi-filetype-css"></i></div>
                     <div class="tech-icon tech-icon-5" title="JavaScript"><i class="bi bi-filetype-js"></i></div>
-                    <div class="tech-icon tech-icon-6" title="Database"><i class="bi bi-database"></i></div>
+                    <div class="tech-icon tech-icon-6" title="Database"><i class="bi bi-server"></i></div>
                     <div class="tech-icon tech-icon-7" title="Cloud"><i class="bi bi-cloud"></i></div>
                     <div class="tech-icon tech-icon-8" title="Bootstrap"><i class="bi bi-bootstrap"></i></div>
                     <div class="tech-icon tech-icon-9" title="Server"><i class="bi bi-server"></i></div>
                     <div class="tech-icon tech-icon-10" title="Git"><i class="bi bi-git"></i></div>
                     <div class="tech-icon tech-icon-11" title="WordPress"><i class="bi bi-wordpress"></i></div>
                     <div class="tech-icon tech-icon-12" title="API"><i class="bi bi-diagram-3"></i></div>
+                </div>
+
+                <!-- Achievements Badges -->
+                <div class="achievements mt-4">
+                    <div class="achievement-badge mb-2">
+                        <i class="bi bi-trophy-fill text-warning me-2"></i>
+                        <span class="fw-semibold">@ViewData["Achievement1"]</span>
+                    </div>
+                    <div class="achievement-badge">
+                        <i class="bi bi-trophy-fill text-warning me-2"></i>
+                        <span class="fw-semibold">@ViewData["Achievement2"]</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -460,13 +461,13 @@
 
     /* Profile Image */
     .profile-wrapper {
-        max-width: 500px;
+        max-width: 600px;
         position: relative;
-        padding: 20px;
+        padding: 15px;
     }
 
     .profile-main {
-        max-width: 350px;
+        max-width: 400px;
         width: 100%;
         border: 5px solid white;
     }
