@@ -6,38 +6,25 @@
 <section class="hero-section text-center py-5">
     <div class="container">
         <div class="row align-items-center">
-            <div class="col-lg-6 text-lg-start">
+            <div class="col-lg-6 text-lg-start text-center">
                 <h1 class="display-4 fw-bold text-gradient mb-3">@ViewData["Name"]</h1>
                 <h2 class="h3 mb-4">@ViewData["Title"]</h2>
                 <p class="lead mb-4">@ViewData["Summary"]</p>
 
                 <!-- Contact Info -->
-                <div class="contact-info mb-4 text-start">
-                    <div class="d-flex align-items-center mb-2">
+                <div class="contact-info mb-4 text-center text-lg-start">
+                    <div class="d-flex align-items-center justify-content-center justify-content-lg-start mb-2">
                         <i class="bi bi-envelope-fill me-2"></i>
                         <a href="mailto:@ViewData["Email"]" class="text-decoration-none">@ViewData["Email"]</a>
                     </div>
-                    <div class="d-flex align-items-center mb-2">
+                    <div class="d-flex align-items-center justify-content-center justify-content-lg-start mb-2">
                         <i class="bi bi-telephone-fill me-2"></i>
                         <a href="tel:@ViewData["Phone"]" class="text-decoration-none">@ViewData["Phone"]</a>
                     </div>
-                    <div class="d-flex align-items-center mb-2">
+                    <div class="d-flex align-items-center justify-content-center justify-content-lg-start mb-2">
                         <i class="bi bi-geo-alt-fill me-2"></i>
                         <span>@ViewData["Location"]</span>
                     </div>
-                </div>
-
-                <!-- Action Buttons -->
-                <div class="d-flex flex-wrap gap-2 justify-content-lg-start justify-content-center">
-                    <a class="btn btn-primary btn-lg" asp-controller="Projects" asp-action="Index">
-                        <i class="bi bi-code-slash me-2"></i>View Projects
-                    </a>
-                    <a class="btn btn-outline-dark btn-lg" href="https://@ViewData["LinkedIn"]" target="_blank" rel="noopener noreferrer">
-                        <i class="bi bi-linkedin me-2"></i>LinkedIn
-                    </a>
-                    <a class="btn btn-outline-dark btn-lg" href="https://@ViewData["GitHub"]" target="_blank" rel="noopener noreferrer">
-                        <i class="bi bi-github me-2"></i>GitHub
-                    </a>
                 </div>
             </div>
 
@@ -54,10 +41,10 @@
                     <div class="tech-icon tech-icon-6" title="Database"><i class="bi bi-server"></i></div>
                     <div class="tech-icon tech-icon-7" title="Cloud"><i class="bi bi-cloud"></i></div>
                     <div class="tech-icon tech-icon-8" title="Bootstrap"><i class="bi bi-bootstrap"></i></div>
-                    <div class="tech-icon tech-icon-9" title="Server"><i class="bi bi-server"></i></div>
-                    <div class="tech-icon tech-icon-10" title="Git"><i class="bi bi-git"></i></div>
-                    <div class="tech-icon tech-icon-11" title="WordPress"><i class="bi bi-wordpress"></i></div>
-                    <div class="tech-icon tech-icon-12" title="API"><i class="bi bi-diagram-3"></i></div>
+                    <div class="tech-icon tech-icon-9" title="Git"><i class="bi bi-git"></i></div>
+                    <div class="tech-icon tech-icon-10" title="WordPress"><i class="bi bi-wordpress"></i></div>
+                    <div class="tech-icon tech-icon-11" title="API"><i class="bi bi-diagram-3"></i></div>
+                    <div class="tech-icon tech-icon-12" title="Mobile"><i class="bi bi-phone"></i></div>
                 </div>
 
                 <!-- Achievements Badges -->
@@ -81,7 +68,7 @@
     <div class="container">
         <h2 class="section-title text-center mb-5">My Expertise</h2>
         <div class="row g-4">
-            <div class="col-md-3">
+            <div class="col-md-3 col-sm-6">
                 <div class="expertise-card text-center p-4 h-100">
                     <div class="icon-wrapper mb-3">
                         <i class="bi bi-code-square expertise-icon"></i>
@@ -90,7 +77,7 @@
                     <p class="small">ASP.NET Core, PHP, C#, .NET MAUI, Laravel, RESTful APIs</p>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 col-sm-6">
                 <div class="expertise-card text-center p-4 h-100">
                     <div class="icon-wrapper mb-3">
                         <i class="bi bi-palette expertise-icon"></i>
@@ -99,7 +86,7 @@
                     <p class="small">HTML5, CSS3, JavaScript, Bootstrap, jQuery, Responsive Design</p>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 col-sm-6">
                 <div class="expertise-card text-center p-4 h-100">
                     <div class="icon-wrapper mb-3">
                         <i class="bi bi-wordpress expertise-icon"></i>
@@ -108,7 +95,7 @@
                     <p class="small">WordPress Development, Theme Customization, Plugin Development, WooCommerce</p>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 col-sm-6">
                 <div class="expertise-card text-center p-4 h-100">
                     <div class="icon-wrapper mb-3">
                         <i class="bi bi-database expertise-icon"></i>
@@ -152,8 +139,8 @@
 <!-- Featured Projects -->
 <section class="featured-projects py-5">
     <div class="container">
-        <div class="d-flex justify-content-between align-items-center mb-5">
-            <div>
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-5">
+            <div class="text-center text-md-start mb-3 mb-md-0">
                 <h2 class="section-title mb-0">Featured Projects</h2>
                 <p class="text-muted">Innovative solutions built with modern technologies</p>
             </div>
@@ -374,6 +361,7 @@
         box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         animation: float 3s ease-in-out infinite;
         font-size: 1.5rem;
+        z-index: 10;
     }
 
     @@keyframes float {
@@ -386,76 +374,76 @@
         }
     }
 
-    /* Position tech icons around profile */
+    /* Position tech icons around profile - Improved arrangement */
     .tech-icon-1 {
         top: 10%;
-        left: -5%;
+        left: 5%;
         animation-delay: 0s;
     }
 
     .tech-icon-2 {
-        top: 20%;
-        right: -5%;
+        top: 10%;
+        right: 5%;
         animation-delay: 0.2s;
     }
 
     .tech-icon-3 {
-        top: 40%;
-        left: -8%;
+        top: 25%;
+        left: 0%;
         animation-delay: 0.4s;
     }
 
     .tech-icon-4 {
-        top: 40%;
-        right: -8%;
+        top: 25%;
+        right: 0%;
         animation-delay: 0.6s;
     }
 
     .tech-icon-5 {
-        top: 60%;
+        top: 45%;
         left: -5%;
         animation-delay: 0.8s;
     }
 
     .tech-icon-6 {
-        top: 60%;
+        top: 45%;
         right: -5%;
         animation-delay: 1s;
     }
 
     .tech-icon-7 {
-        top: 80%;
+        top: 65%;
         left: 0%;
         animation-delay: 1.2s;
     }
 
     .tech-icon-8 {
-        top: 80%;
+        top: 65%;
         right: 0%;
         animation-delay: 1.4s;
     }
 
     .tech-icon-9 {
-        bottom: -5%;
-        left: 15%;
+        bottom: 10%;
+        left: 10%;
         animation-delay: 1.6s;
     }
 
     .tech-icon-10 {
-        bottom: -5%;
-        right: 15%;
+        bottom: 10%;
+        right: 10%;
         animation-delay: 1.8s;
     }
 
     .tech-icon-11 {
-        top: 5%;
-        left: 20%;
+        bottom: 25%;
+        left: 15%;
         animation-delay: 2s;
     }
 
     .tech-icon-12 {
-        top: 5%;
-        right: 20%;
+        bottom: 25%;
+        right: 15%;
         animation-delay: 2.2s;
     }
 
@@ -630,72 +618,68 @@
             text-align: center !important;
         }
 
-        .justify-content-lg-start {
-            justify-content: center !important;
-        }
-
         .contact-info {
             text-align: center !important;
         }
         /* Adjust tech icon positions for smaller circles */
         .tech-icon-1 {
             top: 5%;
-            left: 0%;
+            left: 5%;
         }
 
         .tech-icon-2 {
-            top: 10%;
-            right: 0%;
+            top: 5%;
+            right: 5%;
         }
 
         .tech-icon-3 {
-            top: 30%;
-            left: -5%;
+            top: 20%;
+            left: 0%;
         }
 
         .tech-icon-4 {
-            top: 30%;
-            right: -5%;
+            top: 20%;
+            right: 0%;
         }
 
         .tech-icon-5 {
-            top: 50%;
-            left: -5%;
+            top: 40%;
+            left: -3%;
         }
 
         .tech-icon-6 {
-            top: 50%;
-            right: -5%;
+            top: 40%;
+            right: -3%;
         }
 
         .tech-icon-7 {
-            top: 70%;
+            top: 60%;
             left: 0%;
         }
 
         .tech-icon-8 {
-            top: 70%;
+            top: 60%;
             right: 0%;
         }
 
         .tech-icon-9 {
-            bottom: 0%;
+            bottom: 10%;
             left: 10%;
         }
 
         .tech-icon-10 {
-            bottom: 0%;
+            bottom: 10%;
             right: 10%;
         }
 
         .tech-icon-11 {
-            top: 0%;
-            left: 15%;
+            bottom: 25%;
+            left: 12%;
         }
 
         .tech-icon-12 {
-            top: 0%;
-            right: 15%;
+            bottom: 25%;
+            right: 12%;
         }
     }
 
@@ -725,11 +709,6 @@
 
         .lead {
             font-size: 0.95rem;
-        }
-
-        .btn-lg {
-            padding: 0.5rem 1rem;
-            font-size: 1rem;
         }
 
         .achievement-badge {
@@ -776,62 +755,62 @@
         /* Reduce tech icon spread on mobile */
         .tech-icon-1 {
             top: 8%;
-            left: 5%;
+            left: 8%;
         }
 
         .tech-icon-2 {
             top: 8%;
-            right: 5%;
+            right: 8%;
         }
 
         .tech-icon-3 {
             top: 25%;
-            left: 0%;
+            left: 2%;
         }
 
         .tech-icon-4 {
             top: 25%;
-            right: 0%;
+            right: 2%;
         }
 
         .tech-icon-5 {
             top: 45%;
-            left: -3%;
+            left: -2%;
         }
 
         .tech-icon-6 {
             top: 45%;
-            right: -3%;
+            right: -2%;
         }
 
         .tech-icon-7 {
             top: 65%;
-            left: 0%;
+            left: 2%;
         }
 
         .tech-icon-8 {
             top: 65%;
-            right: 0%;
+            right: 2%;
         }
 
         .tech-icon-9 {
-            bottom: 5%;
+            bottom: 10%;
             left: 12%;
         }
 
         .tech-icon-10 {
-            bottom: 5%;
+            bottom: 10%;
             right: 12%;
         }
 
         .tech-icon-11 {
-            top: -3%;
-            left: 20%;
+            bottom: 25%;
+            left: 15%;
         }
 
         .tech-icon-12 {
-            top: -3%;
-            right: 20%;
+            bottom: 25%;
+            right: 15%;
         }
     }
 
@@ -868,13 +847,6 @@
             font-size: 0.9rem;
         }
 
-        .btn-lg {
-            padding: 0.45rem 0.9rem;
-            font-size: 0.9rem;
-            width: 100%;
-            margin-bottom: 0.5rem;
-        }
-
         .achievement-badge {
             padding: 0.35rem 0.7rem;
             font-size: 0.8rem;
@@ -888,12 +860,6 @@
         .contact-info {
             font-size: 0.85rem;
         }
-
-            .contact-info .d-flex {
-                flex-direction: column;
-                align-items: center !important;
-                text-align: center;
-            }
 
         .expertise-card {
             padding: 1.25rem !important;
@@ -977,32 +943,32 @@
         /* Adjust remaining icons */
         .tech-icon-1 {
             top: 10%;
-            left: 8%;
+            left: 10%;
         }
 
         .tech-icon-2 {
             top: 10%;
-            right: 8%;
+            right: 10%;
         }
 
         .tech-icon-3 {
             top: 30%;
-            left: 2%;
+            left: 5%;
         }
 
         .tech-icon-4 {
             top: 30%;
-            right: 2%;
+            right: 5%;
         }
 
         .tech-icon-5 {
             top: 50%;
-            left: -2%;
+            left: 0%;
         }
 
         .tech-icon-6 {
             top: 50%;
-            right: -2%;
+            right: 0%;
         }
 
         .tech-icon-7 {
@@ -1016,12 +982,12 @@
         }
 
         .tech-icon-9 {
-            bottom: 8%;
+            bottom: 10%;
             left: 15%;
         }
 
         .tech-icon-10 {
-            bottom: 8%;
+            bottom: 10%;
             right: 15%;
         }
         /* Stack buttons vertically on mobile */
