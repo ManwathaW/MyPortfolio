@@ -73,8 +73,8 @@ namespace Portfolio.Controllers
             ViewData["Location"] = "Johannesburg, Gauteng, South Africa";
 
             // Achievements
-            ViewData["Achievement1"] = "🏆 2nd Place Overall Top Trainee - LDIL Programme 2025";
-            ViewData["Achievement2"] = "🏆 2nd Place Winner - Limpopo Connection Hackathon 2024";
+            ViewData["Achievement1"] = " 2nd Place Overall Top Trainee - LDIL Programme 2025";
+            ViewData["Achievement2"] = " 2nd Place Winner - Limpopo Connection Hackathon 2024";
 
             // Get featured projects for the homepage
             var featuredProjects = _projects
