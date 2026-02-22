@@ -64,7 +64,7 @@ This project uses a modern DevOps workflow:
 **Manwatha Wanga**
 * **Role:** Full-Stack Developer & AI Solutions Architect
 * **Specialization:** .NET MAUI, C#, and AI Engineering
-* **LinkedIn:** [Your LinkedIn Profile Link]
+
 
 ---
 © 2026 Manwatha Wanga
