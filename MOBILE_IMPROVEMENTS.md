@@ -107,9 +107,29 @@ All pages in your Portfolio have been updated to provide excellent mobile respon
 - ? Full-width image display on small screens
 - ? Better button accessibility
 
----
+### 6. **Views/Home/About.cshtml** (About Page)
+#### Changes:
+- Separated CSS into dedicated external file (`wwwroot/css/about.css`) to avoid Razor @ symbol conflicts
+- Updated hero section to use responsive padding (`py-4 py-md-5`)
+- Made profile image responsive (200px on mobile, 250px on tablet, 450px on desktop)
+- Improved profile image with proper `img-fluid` class
+- Converted stats grid to 2-column on mobile (2x2 grid), full 4-column on desktop
+- Made all sections use `container-fluid` with responsive padding
+- Updated timeline to be single-column on mobile, centered on desktop (50% layout)
+- Improved contact information cards with proper responsive gap spacing
+- All buttons properly sized for mobile touch targets
+- CV preview responsive height (400px on mobile, 600px on desktop)
+- Section titles responsive font sizing
 
-## Key Features Implemented
+#### Mobile Benefits:
+- ? Profile image displays at proper aspect ratio on all devices
+- ? Stats cards in 2x2 grid on mobile (better use of space)
+- ? Timeline single column on mobile, alternating on desktop
+- ? Contact information easily tappable on mobile
+- ? CV preview adjusts height for mobile screens
+- ? Better readability on all screen sizes
+
+---
 
 ### Responsive Design
 - Mobile-first approach with proper breakpoints
