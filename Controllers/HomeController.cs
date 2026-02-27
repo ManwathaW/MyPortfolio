@@ -59,7 +59,7 @@ namespace Portfolio.Controllers
         public IActionResult Index()
         {
             // Your personal information
-            ViewData["Name"] = "MANWATHA WANGA COMFORT";
+            ViewData["Name"] = "MANWATHA WANGA";
             ViewData["Title"] = "Full Stack Developer";
             ViewData["Summary"] = "Full Stack Developer with expertise in .NET, PHP, and WordPress, " +
                 "specializing in scalable web and mobile solutions using C#, ASP.NET Core MVC, and CMS platforms. " +               
