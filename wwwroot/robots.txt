@@ -1,0 +1,46 @@
+# Robots.txt for Manwatha Wanga Portfolio
+# Controls search engine crawler access
+
+# Allow all bots (except bad ones)
+User-agent: *
+Allow: /
+
+# Disallow admin pages
+Disallow: /admin/
+Disallow: /Admin/
+
+# Disallow API endpoints (if you add them)
+Disallow: /api/admin/
+
+# Disallow staging/test pages
+Disallow: /test/
+Disallow: /staging/
+
+# Allow specific important pages
+Allow: /home/
+Allow: /projects/
+Allow: /skills/
+Allow: /contact/
+Allow: /about/
+
+# Specify sitemap location
+Sitemap: https://manwatha-portfolio.onrender.com/sitemap.xml
+
+# Crawl delay (optional - how long to wait between requests)
+# Crawl-delay: 1
+
+# Request rate (optional - how many pages per second)
+# Request-rate: 1/1s
+
+# Block bad bots (optional)
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: SemrushBot-SA
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /

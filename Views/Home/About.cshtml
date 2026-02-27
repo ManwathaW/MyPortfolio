@@ -2,6 +2,44 @@
     ViewData["Title"] = "About Me";
 }
 
+<script>
+    // 1. Show notifications
+    showToastNotification('Success!', 'success');
+    showToastNotification('Error!', 'error');
+    showToastNotification('Warning!', 'warning');
+    showToastNotification('Info', 'info');
+
+    // 2. Track events
+    trackCustomEvent('video_played', { duration: 120 });
+
+    // 3. Add breadcrumbs (in controller)
+    var breadcrumbs = _uiUxService.GetBreadcrumbs("Projects", "My Projects");
+    ViewBag.Breadcrumbs = breadcrumbs;
+
+    // 4. Setup pagination
+    var pagination = _uiUxService.CalculatePagination(50, 1, 10);
+    ViewBag.Pagination = pagination;
+
+    // 5. Lazy load images
+    document.addEventListener("DOMContentLoaded", function() {
+        var lazyImages = document.querySelectorAll("img.lazy-image");
+        var imageObserver = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    var img = entry.target;
+                    img.src = img.getAttribute("data-src");
+                    img.classList.remove("lazy-image");
+                    imageObserver.unobserve(img);
+                }
+            });
+        });
+
+        lazyImages.forEach(function(image) {
+            imageObserver.observe(image);
+        });
+    });
+</script>
+
 <link rel="stylesheet" href="~/css/about.css" />
 <link rel="stylesheet" href="~/css/animations.css" />
 
@@ -237,7 +275,7 @@
             </div>
         </div>
     </div>
-</section>
+    </section>
 
 <!-- CV Preview Section -->
 <section class="py-4 py-md-5 bg-light" id="cv-preview">
@@ -389,3 +427,4 @@
         </div>
     </div>
 </section>
+
