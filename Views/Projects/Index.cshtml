@@ -3,49 +3,48 @@
     ViewData["Title"] = "My Projects";
 }
 
-<div class="container py-4">
-    <h1 class="mb-4">@ViewData["Title"]</h1>
-    <p class="lead">Browse through my development projects and applications.</p>
+<div class="mb-4">
+    <h1 class="mb-3">@ViewData["Title"]</h1>
+    <p class="lead text-muted">Browse through my development projects and applications.</p>
+</div>
 
-    <!-- Filters and Controls -->
-    <div class="row mb-4">
-        <div class="col-md-8">
-            <div class="d-flex align-items-center">
-                <form asp-action="Index" method="get" class="d-flex me-3 flex-grow-1">
-                    <select name="technology" class="form-select me-2" onchange="this.form.submit()">
-                        <option value="">All Technologies</option>
-                        @foreach (var tech in Model.Technologies)
-                        {
-                            <option value="@tech" selected="@(tech == Model.SelectedTechnology)">@tech</option>
-                        }
-                    </select>
-                    <input type="hidden" name="viewMode" value="@Model.ViewMode" />
-                    <input type="hidden" name="page" value="1" /> <!-- Reset to page 1 when filter changes -->
-                </form>
-                <span class="me-2">@Model.TotalItems Projects</span>
-                @if (!string.IsNullOrEmpty(Model.SelectedTechnology))
+<!-- Filters and Controls -->
+<div class="row mb-4 g-2">
+    <div class="col-12 col-lg-8">
+        <form asp-action="Index" method="get" class="d-flex flex-column flex-sm-row gap-2">
+            <select name="technology" class="form-select" onchange="this.form.submit()" style="flex: 1;">
+                <option value="">All Technologies</option>
+                @foreach (var tech in Model.Technologies)
                 {
-                    <a asp-action="Index" asp-route-viewMode="@Model.ViewMode" class="btn btn-sm btn-outline-secondary">
-                        <i class="bi bi-x-circle"></i> Clear Filter
-                    </a>
+                    <option value="@tech" selected="@(tech == Model.SelectedTechnology)">@tech</option>
                 }
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="d-flex justify-content-md-end">
-                <div class="btn-group" role="group">
-                    <a asp-action="Index" asp-route-technology="@Model.SelectedTechnology" asp-route-viewMode="grid" asp-route-page="@Model.CurrentPage"
-                       class="btn btn-outline-primary @(Model.ViewMode == "grid" ? "active" : "")">
-                        <i class="bi bi-grid-3x3-gap"></i> Grid
-                    </a>
-                    <a asp-action="Index" asp-route-technology="@Model.SelectedTechnology" asp-route-viewMode="list" asp-route-page="@Model.CurrentPage"
-                       class="btn btn-outline-primary @(Model.ViewMode == "list" ? "active" : "")">
-                        <i class="bi bi-list-ul"></i> List
-                    </a>
-                </div>
+            </select>
+            <input type="hidden" name="viewMode" value="@Model.ViewMode" />
+            <input type="hidden" name="page" value="1" />
+            <span class="text-muted align-self-center">@Model.TotalItems</span>
+            @if (!string.IsNullOrEmpty(Model.SelectedTechnology))
+            {
+                <a asp-action="Index" asp-route-viewMode="@Model.ViewMode" class="btn btn-sm btn-outline-secondary">
+                    <i class="bi bi-x-circle"></i> Clear
+                </a>
+            }
+        </form>
+    </div>
+    <div class="col-12 col-lg-4">
+        <div class="d-flex justify-content-lg-end">
+            <div class="btn-group w-100 w-lg-auto" role="group">
+                <a asp-action="Index" asp-route-technology="@Model.SelectedTechnology" asp-route-viewMode="grid" asp-route-page="@Model.CurrentPage"
+                   class="btn btn-sm btn-outline-primary @(Model.ViewMode == "grid" ? "active" : "")">
+                    <i class="bi bi-grid-3x3-gap"></i> Grid
+                </a>
+                <a asp-action="Index" asp-route-technology="@Model.SelectedTechnology" asp-route-viewMode="list" asp-route-page="@Model.CurrentPage"
+                   class="btn btn-sm btn-outline-primary @(Model.ViewMode == "list" ? "active" : "")">
+                    <i class="bi bi-list-ul"></i> List
+                </a>
             </div>
         </div>
     </div>
+</div>
 
     <!-- No Projects Found Message -->
     @if (!Model.Projects.Any())
@@ -58,15 +57,15 @@
     <!-- Projects Grid View -->
     @if (Model.ViewMode == "grid")
     {
-        <div class="row row-cols-1 row-cols-md-2 g-4">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 g-md-4">
             @foreach (var project in Model.Projects)
             {
                 <div class="col">
                     <div class="card h-100 project-card">
-                        <div class="position-relative">
-                            <img src="@project.ImageUrl" class="card-img-top" alt="@project.Title">
-                            <div class="project-overlay">
-                                <a asp-action="Details" asp-route-id="@project.Id" class="btn btn-primary">View Details</a>
+                        <div class="position-relative overflow-hidden" style="height: 200px;">
+                            <img src="@project.ImageUrl" class="card-img-top w-100 h-100 object-fit-cover" alt="@project.Title">
+                            <div class="project-overlay d-none">
+                                <a asp-action="Details" asp-route-id="@project.Id" class="btn btn-primary btn-sm">View Details</a>
                             </div>
                             @if (project.IsFeatured)
                             {
@@ -75,34 +74,30 @@
                                 </div>
                             }
                         </div>
-                        <div class="card-body">
-                            <h5 class="card-title">@project.Title</h5>
-                            <p class="card-text">@project.Description</p>
+                        <div class="card-body pb-2">
+                            <h5 class="card-title fs-6">@project.Title</h5>
+                            <p class="card-text small text-muted">@project.Description</p>
                             <div class="mb-2">
                                 @foreach (var tech in project.Technologies.Take(3))
                                 {
-                                    <span class="badge bg-secondary me-1">@tech</span>
+                                    <span class="badge bg-secondary me-1 mb-1">@tech</span>
                                 }
                                 @if (project.Technologies.Count > 3)
                                 {
-                                    <span class="badge bg-light text-dark">+@(project.Technologies.Count - 3) more</span>
+                                    <span class="badge bg-light text-dark">+@(project.Technologies.Count - 3)</span>
                                 }
                             </div>
                         </div>
-                        <div class="card-footer bg-transparent">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <small class="text-muted">Completed: @project.CompletionDate.ToString("MMM yyyy")</small>
-                                <div>
-                                    <a asp-action="Details" asp-route-id="@project.Id" class="btn btn-sm btn-primary">
-                                        Details
+                        <div class="card-footer bg-transparent d-flex justify-content-between align-items-center flex-wrap gap-2">
+                            <small class="text-muted">@project.CompletionDate.ToString("MMM yyyy")</small>
+                            <div class="d-flex gap-2">
+                                <a asp-action="Details" asp-route-id="@project.Id" class="btn btn-sm btn-primary">Details</a>
+                                @if (!string.IsNullOrEmpty(project.GitHubUrl))
+                                {
+                                    <a href="@project.GitHubUrl" target="_blank" class="btn btn-sm btn-outline-dark" title="GitHub">
+                                        <i class="bi bi-github"></i>
                                     </a>
-                                    @if (!string.IsNullOrEmpty(project.GitHubUrl))
-                                    {
-                                        <a href="@project.GitHubUrl" target="_blank" class="btn btn-sm btn-outline-dark ms-1">
-                                            <i class="bi bi-github"></i>
-                                        </a>
-                                    }
-                                </div>
+                                }
                             </div>
                         </div>
                     </div>
@@ -114,43 +109,49 @@
     <!-- Projects List View -->
     @if (Model.ViewMode == "list")
     {
-        <div class="list-group">
+        <div class="row">
             @foreach (var project in Model.Projects)
             {
-                <div class="list-group-item list-group-item-action d-flex gap-3 py-3">
-                    <img src="@project.ImageUrl" alt="@project.Title" width="100" height="80" class="rounded flex-shrink-0">
-                    <div class="d-flex gap-2 w-100 justify-content-between">
-                        <div>
-                            <h6 class="mb-0">@project.Title</h6>
-                            <p class="mb-0 text-muted">@project.Description</p>
-                            <div class="mt-1">
-                                @foreach (var tech in project.Technologies.Take(5))
-                                {
-                                    <span class="badge bg-secondary me-1">@tech</span>
-                                }
-                                @if (project.Technologies.Count > 5)
-                                {
-                                    <span class="badge bg-light text-dark">+@(project.Technologies.Count - 5) more</span>
-                                }
+                <div class="col-12 mb-3">
+                    <div class="list-group-item list-group-item-action p-3 rounded">
+                        <div class="row g-3">
+                            <div class="col-12 col-sm-3">
+                                <img src="@project.ImageUrl" alt="@project.Title" class="img-fluid rounded" style="max-height: 150px;">
                             </div>
-                        </div>
-                        <div class="d-flex flex-column align-items-end">
-                            <small class="text-muted mb-1">@project.CompletionDate.ToString("MMM yyyy")</small>
-                            <div>
-                                <a asp-action="Details" asp-route-id="@project.Id" class="btn btn-sm btn-primary">
-                                    Details
-                                </a>
-                                @if (!string.IsNullOrEmpty(project.GitHubUrl))
-                                {
-                                    <a href="@project.GitHubUrl" target="_blank" class="btn btn-sm btn-outline-dark ms-1">
-                                        <i class="bi bi-github"></i>
-                                    </a>
-                                }
+                            <div class="col-12 col-sm-9">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <div>
+                                        <h6 class="mb-1">@project.Title</h6>
+                                        <p class="mb-2 text-muted small">@project.Description</p>
+                                    </div>
+                                    @if (project.IsFeatured)
+                                    {
+                                        <span class="badge bg-success">Featured</span>
+                                    }
+                                </div>
+                                <div class="mb-2">
+                                    @foreach (var tech in project.Technologies.Take(5))
+                                    {
+                                        <span class="badge bg-secondary me-1 mb-1">@tech</span>
+                                    }
+                                    @if (project.Technologies.Count > 5)
+                                    {
+                                        <span class="badge bg-light text-dark">+@(project.Technologies.Count - 5)</span>
+                                    }
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                                    <small class="text-muted">@project.CompletionDate.ToString("MMM yyyy")</small>
+                                    <div class="d-flex gap-2">
+                                        <a asp-action="Details" asp-route-id="@project.Id" class="btn btn-sm btn-primary">Details</a>
+                                        @if (!string.IsNullOrEmpty(project.GitHubUrl))
+                                        {
+                                            <a href="@project.GitHubUrl" target="_blank" class="btn btn-sm btn-outline-dark">
+                                                <i class="bi bi-github"></i>
+                                            </a>
+                                        }
+                                    </div>
+                                </div>
                             </div>
-                            @if (project.IsFeatured)
-                            {
-                                <span class="badge bg-success mt-1">Featured</span>
-                            }
                         </div>
                     </div>
                 </div>
@@ -162,7 +163,7 @@
     @if (Model.TotalPages > 1)
     {
         <nav aria-label="Project pagination" class="mt-4">
-            <ul class="pagination justify-content-center">
+            <ul class="pagination justify-content-center flex-wrap">
                 <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
                     <a class="page-link" asp-action="Index" asp-route-technology="@Model.SelectedTechnology"
                        asp-route-viewMode="@Model.ViewMode" asp-route-page="1">
@@ -205,4 +206,3 @@
             </ul>
         </nav>
     }
-</div>

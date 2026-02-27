@@ -3,22 +3,21 @@ ViewData["Title"] = "Full Stack Developer";
 }
 
 <!-- Hero Section -->
-<section class="hero-section text-center py-5 bg-light">
+<section class="hero-section text-center py-4 py-md-5 bg-light">
     <div class="container">
-        <div class="row align-items-center">
+        <div class="row align-items-center g-4">
             <!-- Text Content -->
-            <div class="col-lg-6 text-lg-start text-center">
-                <h1 class="display-4 fw-bold text-gradient mb-3">@ViewData["Name"]</h1>
-                <h2 class="h3 mb-4">@ViewData["Title"]</h2>
-                <p class="lead mb-4">@ViewData["Summary"]</p>
-                <!-- Contact Info Placeholder -->
+            <div class="col-12 col-lg-6 text-lg-start">
+                <h1 class="display-5 display-md-4 fw-bold text-gradient mb-3">@ViewData["Name"]</h1>
+                <h2 class="h4 h3-md mb-4 text-muted">@ViewData["Title"]</h2>
+                <p class="lead fs-6 fs-md-base mb-4">@ViewData["Summary"]</p>
             </div>
 
             <!-- Profile Image with Tech Icons -->
-            <div class="col-lg-6 mt-5 mt-lg-0">
-                <div class="position-relative profile-wrapper mx-auto" style="width: 280px; height: 280px;">
+            <div class="col-12 col-lg-6 mt-4 mt-lg-0">
+                <div class="profile-wrapper mx-auto" style="width: 280px; height: 280px;">
                     <img src="/Images/profile.webp" alt="@ViewData["Name"] - Profile Photo"
-                         class="img-fluid rounded-circle profile-main shadow-lg mx-auto d-block">
+                         class="img-fluid rounded-circle profile-main">
 
                     <!-- Floating Tech Icons -->
                     <div class="tech-icon tech-icon-1" title="C#"><i class="bi bi-filetype-cs"></i></div>
@@ -41,7 +40,7 @@ ViewData["Title"] = "Full Stack Developer";
 
                 <!-- Achievements -->
                 <div class="achievements mt-4">
-                    <div class="achievement-badge mb-2">
+                    <div class="achievement-badge">
                         <i class="bi bi-trophy-fill text-warning me-2"></i>
                         <span class="fw-semibold">@ViewData["Achievement1"]</span>
                     </div>
@@ -59,41 +58,41 @@ ViewData["Title"] = "Full Stack Developer";
 <section class="skills-overview py-5 bg-light">
     <div class="container">
         <h2 class="section-title text-center mb-5">My Expertise</h2>
-        <div class="row g-4">
-            <div class="col-md-3 col-sm-6">
+        <div class="row g-3 g-md-4">
+            <div class="col-12 col-sm-6 col-lg-3">
                 <div class="expertise-card text-center p-4 h-100">
                     <div class="icon-wrapper mb-3">
                         <i class="bi bi-code-square expertise-icon"></i>
                     </div>
-                    <h3 class="h5">Backend Development</h3>
-                    <p class="small">ASP.NET Core, PHP, C#, .NET MAUI, Laravel, RESTful APIs</p>
+                    <h3 class="h5 mb-3">Backend Development</h3>
+                    <p class="small text-muted mb-0">ASP.NET Core, PHP, C#, .NET MAUI, Laravel, RESTful APIs</p>
                 </div>
             </div>
-            <div class="col-md-3 col-sm-6">
+            <div class="col-12 col-sm-6 col-lg-3">
                 <div class="expertise-card text-center p-4 h-100">
                     <div class="icon-wrapper mb-3">
                         <i class="bi bi-palette expertise-icon"></i>
                     </div>
-                    <h3 class="h5">Frontend Development</h3>
-                    <p class="small">HTML5, CSS3, JavaScript, Bootstrap, jQuery, Responsive Design</p>
+                    <h3 class="h5 mb-3">Frontend Development</h3>
+                    <p class="small text-muted mb-0">HTML5, CSS3, JavaScript, Bootstrap, jQuery, Responsive Design</p>
                 </div>
             </div>
-            <div class="col-md-3 col-sm-6">
+            <div class="col-12 col-sm-6 col-lg-3">
                 <div class="expertise-card text-center p-4 h-100">
                     <div class="icon-wrapper mb-3">
                         <i class="bi bi-wordpress expertise-icon"></i>
                     </div>
-                    <h3 class="h5">CMS & WordPress</h3>
-                    <p class="small">WordPress Development, Theme Customization, Plugin Development, WooCommerce</p>
+                    <h3 class="h5 mb-3">CMS & WordPress</h3>
+                    <p class="small text-muted mb-0">WordPress Development, Theme Customization, Plugin Development, WooCommerce</p>
                 </div>
             </div>
-            <div class="col-md-3 col-sm-6">
+            <div class="col-12 col-sm-6 col-lg-3">
                 <div class="expertise-card text-center p-4 h-100">
                     <div class="icon-wrapper mb-3">
                         <i class="bi bi-database expertise-icon"></i>
                     </div>
-                    <h3 class="h5">Database & Cloud</h3>
-                    <p class="small">SQL Server, MySQL, PostgreSQL, Firebase, Azure Cloud Services</p>
+                    <h3 class="h5 mb-3">Database & Cloud</h3>
+                    <p class="small text-muted mb-0">SQL Server, MySQL, PostgreSQL, Firebase, Azure Cloud Services</p>
                 </div>
             </div>
         </div>
