@@ -8,6 +8,12 @@ namespace Portfolio.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
+        // Social Media Constants - Single source of truth
+        private const string LinkedInUrl = "https://linkedin.com/in/wanga-manwatha-112wc";
+        private const string GitHubUrl = "https://github.com/ManwathaW";
+        private const string GitHubUsername = "ManwathaW";
+        private const string LinkedInProfile = "wanga-manwatha-112wc";
+
         // Hardcoded projects list
         private static List<Project> _projects = new List<Project>
         {
@@ -65,11 +71,13 @@ namespace Portfolio.Controllers
                 "specializing in scalable web and mobile solutions using C#, ASP.NET Core MVC, and CMS platforms. " +               
                 "Passionate about leveraging cloud technologies, AI, and machine learning to solve real world problems.";
 
-            // Contact information
+            // Contact information - Using constants for consistency
             ViewData["Email"] = "Manwathawanga312@gmail.com";
             ViewData["Phone"] = "(+27) 69 910 5737";
-            ViewData["LinkedIn"] = "linkedin.com/in/wanga-manwatha-112wc";
-            ViewData["GitHub"] = "github.com/ManwathaW";
+            ViewData["LinkedIn"] = LinkedInUrl;
+            ViewData["LinkedInProfile"] = LinkedInProfile;
+            ViewData["GitHub"] = GitHubUrl;
+            ViewData["GitHubUsername"] = GitHubUsername;
             ViewData["Location"] = "Johannesburg, Gauteng, South Africa";
 
             // Achievements
@@ -115,6 +123,10 @@ namespace Portfolio.Controllers
             ViewData["KeySkill4"] = "Cloud Technologies (Azure, Firebase)";
             ViewData["KeySkill5"] = "Database Design & Management";
             ViewData["KeySkill6"] = "RESTful API Development";
+
+            // Social Links
+            ViewData["LinkedIn"] = LinkedInUrl;
+            ViewData["GitHub"] = GitHubUrl;
 
             return View();
         }

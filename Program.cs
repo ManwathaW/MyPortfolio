@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Portfolio.Data;
 using Portfolio.Models;
+using Portfolio.Services;
 using System;
 using System.Collections.Generic;
 
@@ -15,6 +16,13 @@ namespace Portfolio
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            // Add HttpClientFactory for external API calls
+            builder.Services.AddHttpClient();
+
+            // Register Enhancement Services (TIER 3 & TIER 4)
+            builder.Services.AddScoped<PortfolioEnhancementService>();
+            builder.Services.AddScoped<UIUXEnhancementService>();
 
             // Add DbContext
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
